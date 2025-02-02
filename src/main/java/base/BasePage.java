@@ -2,6 +2,7 @@ package base;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 public class BasePage {
 
@@ -31,5 +32,16 @@ public class BasePage {
         return driver.getTitle();
     }
 
+    public void toHoverAndSelect(By mainMenuLocator, By optionLocator){
+        Actions action = new Actions(driver);
+        action.moveToElement(driver.findElement(mainMenuLocator));
+        action.moveToElement(driver.findElement(optionLocator));
+        action.click().build().perform();
 
+    }
+
+    public int getCounter(By locator){
+        String text = driver.findElement(locator).getText();
+        return Integer.parseInt(text);
+    }
 }
