@@ -1,16 +1,16 @@
 package pages;
 
+import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
-public class LoginPage {
+public class LoginPage extends BasePage {
 
     private WebDriver driver;
 
     // loginpage constructor
     public LoginPage(WebDriver driver){
-        this.driver = driver;
+        super(driver);
     }
 
     //    Locators for login page
@@ -23,32 +23,39 @@ public class LoginPage {
     By errorMessageEmptyPassword = By.xpath("//div[contains(text(),'Please enter password')]");
 
     public void login(String username, String password){
-        driver.findElement(usernameInput).clear();
-        driver.findElement(passwordInput).clear();
+//        driver.findElement(usernameInput).clear();
+//        driver.findElement(passwordInput).clear();
 
-        driver.findElement(usernameInput).sendKeys(username);
-        driver.findElement(passwordInput).sendKeys(password);
+        clearText(usernameInput);
+        clearText(passwordInput);
 
-        driver.findElement(bgElement).click();
+//        driver.findElement(usernameInput).sendKeys(username);
+//        driver.findElement(passwordInput).sendKeys(password);
 
-        driver.findElement(loginButton).click();
+        enterText(usernameInput, username);
+        enterText(passwordInput, password);
 
+//        driver.findElement(bgElement).click();
+//        driver.findElement(loginButton).click();
+
+        click(bgElement);
+        click(loginButton);
     }
 
     public boolean isErrorMsgDisplayedAccountNotExists(){
-        return driver.findElement(errorMessageNoAccount).isDisplayed();
+        return isElementDisplayed(errorMessageNoAccount);
     }
 
     public boolean isErrorMsgDisplayedEmptyEmail(){
-        return driver.findElement(errorMessageEmptyEmail).isDisplayed();
+        return isElementDisplayed(errorMessageEmptyEmail);
     }
 
     public boolean isErrorMsgDisplayedEmptyPassword(){
-        return driver.findElement(errorMessageEmptyPassword).isDisplayed();
+        return isElementDisplayed(errorMessageEmptyPassword);
     }
 
     public boolean isErrorMsgDisplayedBothEmpty(){
-        return driver.findElement(errorMessageEmptyEmail).isDisplayed() && driver.findElement(errorMessageEmptyPassword).isDisplayed();
+        return isElementDisplayed(errorMessageEmptyEmail) && isElementDisplayed(errorMessageEmptyPassword);
     }
 
 }

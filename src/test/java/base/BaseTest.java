@@ -1,13 +1,14 @@
-package testclasses;
+package base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+import utils.FrameworkConstants;
 
 public class BaseTest {
 
-    WebDriver driver;
+    public WebDriver driver;
 
     public WebDriver getDriver(){
         driver = new ChromeDriver();
@@ -18,7 +19,7 @@ public class BaseTest {
     public void setup(){
         driver = getDriver();
         driver.manage().window().maximize();
-        driver.get("https://demos.telerik.com/kendo-ui/eshop/Account/Login");
+        driver.get(FrameworkConstants.getVariable("BASE_URL"));
     }
 
     @AfterTest

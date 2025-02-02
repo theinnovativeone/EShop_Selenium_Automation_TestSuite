@@ -1,31 +1,35 @@
 package testclasses;
 
+import base.BaseTest;
 import org.testng.annotations.Test;
 import pages.LoginPage;
+import utils.FrameworkConstants;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static utils.FrameworkConstants.*;
 
-public class LoginTest extends BaseTest{
+public class LoginTest extends BaseTest {
 
     @Test
-    public void loginWithValidCredentials() {
+    public void testLoginWithValidCredentials() {
         LoginPage lp = new LoginPage(driver);
 
-        lp.login("jaxons.danniels@company.com", "User1234");
+        lp.login(FrameworkConstants.getVariable("VALID_USERNAME"), FrameworkConstants.getVariable("VALID_PASSWORD"));
 
-        String actualTitle = driver.getTitle();
+        String actualTitle = lp.getWebPageTitle();
         String expectedTitle = "Home Page - Web";
 
         assertEquals(actualTitle, expectedTitle, "Login successful with valid credentials!");
     }
 
     @Test
-    public void loginWithInvalidUsername() {
+    public void testLoginWithInvalidUsername() {
         LoginPage lp = new LoginPage(driver);
 
-        lp.login("jaxons.invalid@company.com", "User1234");
+        lp.login(FrameworkConstants.getVariable("INVALID_USERNAME"), FrameworkConstants.getVariable("VALID_PASSWORD"));
 
-        String actualTitle = driver.getTitle();
+        String actualTitle = lp.getWebPageTitle();
         String expectedTitle = "Login Page - Web";
 
         assertEquals(actualTitle, expectedTitle, "Login is failed with invalid username!");
@@ -34,12 +38,12 @@ public class LoginTest extends BaseTest{
     }
 
     @Test
-    public void loginWithInvalidPassword() {
+    public void testLoginWithInvalidPassword() {
         LoginPage lp = new LoginPage(driver);
 
-        lp.login("jaxons.danniels@company.com", "Invalid1234");
+        lp.login(FrameworkConstants.getVariable("VALID_USERNAME"), FrameworkConstants.getVariable("INVALID_PASSWORD"));
 
-        String actualTitle = driver.getTitle();
+        String actualTitle = lp.getWebPageTitle();
         String expectedTitle = "Login Page - Web";
 
         assertEquals(actualTitle, expectedTitle, "Login is failed with invalid password!");
@@ -48,12 +52,12 @@ public class LoginTest extends BaseTest{
     }
 
     @Test
-    public void loginWithEmptyUsername() {
+    public void testLoginWithEmptyUsername() {
         LoginPage lp = new LoginPage(driver);
 
-        lp.login("", "Invalid1234");
+        lp.login("", FrameworkConstants.getVariable("VALID_PASSWORD"));
 
-        String actualTitle = driver.getTitle();
+        String actualTitle = lp.getWebPageTitle();
         String expectedTitle = "Login Page - Web";
 
         assertEquals(actualTitle, expectedTitle, "Login is failed with empty username!");
@@ -62,12 +66,12 @@ public class LoginTest extends BaseTest{
     }
 
     @Test
-    public void loginWithEmptyPassword() {
+    public void testLoginWithEmptyPassword() {
         LoginPage lp = new LoginPage(driver);
 
-        lp.login("jaxons.danniels@company.com", "");
+        lp.login(FrameworkConstants.getVariable("VALID_USERNAME"), "");
 
-        String actualTitle = driver.getTitle();
+        String actualTitle = lp.getWebPageTitle();
         String expectedTitle = "Login Page - Web";
 
         assertEquals(actualTitle, expectedTitle, "Login is failed with empty password!");
@@ -76,12 +80,12 @@ public class LoginTest extends BaseTest{
     }
 
     @Test
-    public void loginWithEmptyUsernamePassword() {
+    public void testLoginWithEmptyUsernamePassword() {
         LoginPage lp = new LoginPage(driver);
 
         lp.login("", "");
 
-        String actualTitle = driver.getTitle();
+        String actualTitle = lp.getWebPageTitle();
         String expectedTitle = "Login Page - Web";
 
         assertEquals(actualTitle, expectedTitle, "Login is failed with empty username and password!");
