@@ -1,29 +1,26 @@
 package base;
 
+import driver.DriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import utils.FrameworkConstants;
 
 public class BaseTest {
 
-    public WebDriver driver;
+    public static WebDriver driver;
 
-    public WebDriver getDriver(){
-        driver = new ChromeDriver();
-        return driver;
-    }
-
-    @BeforeTest
+    @BeforeMethod(alwaysRun = true)
     public void setup(){
-        driver = getDriver();
+        DriverManager.setDriver();
+        driver = DriverManager.getDriver();
         driver.manage().window().maximize();
         driver.get(FrameworkConstants.getVariable("BASE_URL"));
     }
 
-    @AfterTest
-    public void teardown(){
-        driver.quit();
+    @AfterMethod(alwaysRun = true)
+    public void tearDown(){
+        DriverManager.closeDriver();
     }
 }

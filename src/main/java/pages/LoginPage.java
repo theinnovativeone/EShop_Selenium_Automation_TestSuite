@@ -3,6 +3,7 @@ package pages;
 import base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import utils.WaitUtils;
 
 public class LoginPage extends BasePage {
 
@@ -14,7 +15,7 @@ public class LoginPage extends BasePage {
     }
 
     //    Locators for login page
-    By usernameInput = By.xpath("//input[@name= 'Email']");
+    By usernameInput = By.xpath("//input[@id='Email']");
     By passwordInput = By.id("Password");
     By bgElement = By.xpath("//div[@class='login-register-wrapper']");
     By loginButton = By.xpath("//button[@type='submit']");
@@ -31,6 +32,8 @@ public class LoginPage extends BasePage {
 
 //        driver.findElement(usernameInput).sendKeys(username);
 //        driver.findElement(passwordInput).sendKeys(password);
+
+        WaitUtils.waitForElementVisible(60, usernameInput);
 
         enterText(usernameInput, username);
         enterText(passwordInput, password);

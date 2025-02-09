@@ -44,4 +44,8 @@ public class BasePage {
         String text = driver.findElement(locator).getText();
         return Integer.parseInt(text);
     }
+
+    public String getTextOfLocator(By locator){
+        return driver.findElement(locator).getText();
+    }
 }

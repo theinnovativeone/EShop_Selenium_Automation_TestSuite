@@ -8,7 +8,7 @@ public class NavigationBarPage extends BasePage {
 
     private WebDriver driver;
 
-    private NavigationBarPage(WebDriver driver){
+    public NavigationBarPage(WebDriver driver){
         super(driver);
     }
 
